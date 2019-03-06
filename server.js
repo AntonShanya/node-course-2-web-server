@@ -1,6 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const port = process.env.PORT || 3000;
 
 var app = express(); //make a new express app.
 
@@ -23,9 +24,13 @@ app.use((req, res, next ) => {
   next(); // senza next() non si caricherà mai la pagina.
 })
 
-app.use((req,res,next) => {
+//middlewear di mantenimento del sito. Il client che si collega al server non potrà visualizzare solo quello che è definito nella
+//pagina maintenance.hbs
+/*app.use((req,res,next) => {
   res.render('maintenance.hbs');
-})
+});*/
+
+
 hbs.registerHelper('getCurrentYear', () => { //Evito di riscrivere una variabile 3 mila volte.
   return new Date().getFullYear(); //La memorizzo in registerHelper e poi ci accedo
 })                                 // tramite "getCurrentYear"
@@ -54,6 +59,6 @@ app.get('/bad',(req,res) => {
 });
 
 //Ora qualcuno deve mettersi in ascolto.
-app.listen(8080, () => {
-  console.log("Server in ascolto sulla porta 8080");
+app.listen(port, () => {
+  console.log(`Server in ascolto sulla porta: ${port}`);
 });
