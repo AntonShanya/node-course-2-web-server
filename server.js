@@ -52,6 +52,12 @@ app.get('/',(req,res) => {
   });
 });
 
+app.get('/projects',(req,res) => {
+  res.render('projects.hbs', {
+    pageTitle: 'About my projects'
+  });
+});
+
 app.get('/bad',(req,res) => {
   res.send({
     errorMessage: 'Unable to sodisfy your request'
